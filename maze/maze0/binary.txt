@@ -1,0 +1,1 @@
+sshpass -p "maze0" ssh -p 2225 maze0@maze.labs.overthewire.org "cat /maze/maze0" > maze0

