@@ -12,6 +12,8 @@
 - Poison null byte to get overlapping chunks
 - modify overlapping chunks to get arbitrary write
 - write into `__free_hook`
+- set register state with `setcontext`
+- run shellcode that bypasses seccomp rules
 
 
 ## Backtrace
@@ -35,6 +37,7 @@ dumped seccomp with:
 seccomp-tools dump ./diary3
 ```
 
+```
  line  CODE  JT   JF      K
 =================================
  0000: 0x20 0x00 0x00 0x00000004  A = arch
@@ -52,4 +55,4 @@ seccomp-tools dump ./diary3
  0012: 0x15 0x00 0x01 0x00000055  if (A != creat) goto 0014
  0013: 0x06 0x00 0x00 0x00000000  return KILL
  0014: 0x06 0x00 0x00 0x7fff0000  return ALLOW
-
+```
